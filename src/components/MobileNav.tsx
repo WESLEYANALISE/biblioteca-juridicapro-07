@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Heart, FileText, Layers } from 'lucide-react';
+import { Home, BookOpen, Heart, FileText } from 'lucide-react';
 
 const MobileNav: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +15,6 @@ const MobileNav: React.FC = () => {
   
   const navItems = [
     { icon: Home, label: 'Início', path: '/' },
-    { icon: Layers, label: 'Categorias', path: '/categories' },
     { icon: BookOpen, label: 'Lendo', path: '/reading' },
     { icon: FileText, label: 'Anotações', path: '/annotations' },
     { icon: Heart, label: 'Favoritos', path: '/favorites' },
@@ -24,7 +23,6 @@ const MobileNav: React.FC = () => {
   return (
     <nav 
       className="fixed top-0 left-0 right-0 z-50 bg-netflix-background mobile-nav flex justify-around items-center py-3 border-b border-netflix-cardHover shadow-lg"
-      data-intro="navigation"
     >
       {navItems.map((item) => (
         <button

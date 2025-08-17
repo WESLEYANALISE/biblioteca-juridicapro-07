@@ -27,6 +27,8 @@ const BookCard: React.FC<BookCardProps> = ({ book, onClick }) => {
           src={book.imagem} 
           alt={book.livro} 
           className="w-full object-cover aspect-[2/3]"
+          loading="lazy"
+          decoding="async"
         />
         <button
           onClick={handleFavoriteClick}

@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { useLibrary } from '@/contexts/LibraryContext';
 import Header from '@/components/Header';
-import AreaFilter from '@/components/AreaFilter';
-import BookGrid from '@/components/BookGrid';
 import BookDetailsModal from '@/components/BookDetailsModal';
 import MobileNav from '@/components/MobileNav';
 import { Book } from '@/types';
@@ -11,11 +9,11 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import SearchBar from '@/components/SearchBar';
 import AreaStats from '@/components/AreaStats';
 import FAQ from '@/components/FAQ';
-import { Scale, GraduationCap, Gavel, Users, Building2, Shield } from 'lucide-react';
+import { Scale } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
-  const { filteredBooks, books } = useLibrary();
+  const { books } = useLibrary();
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = useIsMobile();
@@ -36,27 +34,16 @@ const Index = () => {
   // Show all areas
   const featuredAreas = uniqueAreas;
 
-  // Area icons mapping
-  const getAreaIcon = (areaName: string) => {
-    const lowerCaseArea = areaName.toLowerCase();
-    if (lowerCaseArea.includes('constitucional')) return GraduationCap;
-    if (lowerCaseArea.includes('civil')) return Users;
-    if (lowerCaseArea.includes('penal')) return Gavel;
-    if (lowerCaseArea.includes('trabalho')) return Building2;
-    if (lowerCaseArea.includes('administrativo')) return Shield;
-    return Scale;
-  };
-
   const handleAreaCardClick = (area: string) => {
-    navigate(`/categories/${encodeURIComponent(area)}`);
+    navigate(`/area/${encodeURIComponent(area)}`);
   };
 
   return (
-    <div className="min-h-screen bg-netflix-background text-netflix-text" data-intro="welcome">
+    <div className="min-h-screen bg-netflix-background text-netflix-text">
       {isMobile ? <MobileNav /> : <Header />}
       <div className={`container mx-auto px-4 ${isMobile ? 'pt-20' : 'pt-24'} pb-20`}>
         {/* Search Bar */}
-        <div data-intro="search" className="animate-fade-in-up">
+        <div className="animate-fade-in-up">
           <SearchBar />
         </div>
         
@@ -66,7 +53,7 @@ const Index = () => {
         </div>
         
         {/* Featured Areas with colorful cards */}
-        <div className="mb-16 animate-fade-in-up" data-intro="areas" style={{ animationDelay: '0.4s' }}>
+        <div className="mb-16 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-netflix-accent to-amber-400 bg-clip-text text-transparent">
               Áreas do Direito
@@ -76,7 +63,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 gap-4 md:gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
             {featuredAreas.map((area, index) => {
               const AreaIcon = Scale; // Sempre usar balança da justiça
               const colors = [
@@ -110,19 +97,10 @@ const Index = () => {
             })}
           </div>
           
-          <div className="flex justify-center animate-fade-in-up" style={{ animationDelay: '1s' }}>
-            <button 
-              onClick={() => navigate('/categories')}
-              className="bg-gradient-to-r from-netflix-accent to-amber-500 text-black px-12 py-5 rounded-2xl hover:from-amber-400 hover:to-yellow-500 transition-all duration-500 flex items-center font-bold text-xl shadow-2xl hover:shadow-netflix-accent/25 hover:scale-105 backdrop-blur-sm border border-amber-300/30 group"
-            >
-              <Scale size={24} className="mr-4 group-hover:rotate-12 transition-transform duration-300" />
-              Explorar Biblioteca Completa
-            </button>
-          </div>
         </div>
         
         {/* FAQ Section */}
-        <div data-intro="faq" className="animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
+        <div className="animate-fade-in-up" style={{ animationDelay: '1s' }}>
           <FAQ />
         </div>
       </div>
